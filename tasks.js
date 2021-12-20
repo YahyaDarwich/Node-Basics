@@ -85,7 +85,11 @@ function quit(){
 // The following line starts the application
 startApp("Yahya Darwich")
 
-
+/**
+ * Show all possible commands
+ *
+ * @returns {void}
+ */
 function help(){
   console.log('The possible commands:\nhello\nquit\nexit\nhelp ');
 }
