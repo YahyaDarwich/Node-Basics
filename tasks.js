@@ -37,7 +37,9 @@ function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
-
+else if(text === 'list\n'){
+  list();
+}
   else if (text === 'help\n'){
     help();
   }
@@ -101,4 +103,14 @@ startApp("Yahya Darwich")
  */
 function help(){
   console.log('The possible commands:\nhello\nhello "add anything"\nquit\nexit\nhelp ');
+}
+
+function list(){
+  var tasks = ["sw","wda"];
+  console.log("available tasks:\n");
+
+  for(let i=0;i<tasks.length;i++){
+
+    console.log(i+1+" - [ ] "+tasks[i]);
+  }
 }
