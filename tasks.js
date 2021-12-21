@@ -94,7 +94,7 @@ startApp("Yahya Darwich");
  */
 function help() {
   console.log(
-    'The possible commands:\nhello\nhello "add anything"\nquit\nexit\nhelp '
+    'The possible commands:\nhello\nhello "add anything"\nlist\nadd\nremove\nquit\nexit\nhelp '
   );
 }
 var tasks = ["sw", "wda"];
