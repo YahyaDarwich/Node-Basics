@@ -100,5 +100,5 @@ startApp("Yahya Darwich")
  * @returns {void}
  */
 function help(){
-  console.log('The possible commands:\nhello\nquit\nexit\nhelp ');
+  console.log('The possible commands:\nhello\nhello "add anything"\nquit\nexit\nhelp ');
 }
