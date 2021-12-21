@@ -37,11 +37,19 @@ function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
-  }
+
   else if (text === 'help\n'){
     help();
+  }
+  else if(text.startsWith("hello")){
+  text = text.trim();
+  if(text.substring(0,5) == "hello"){
+    hello(text.substring(5));
+  }
+  else{
+    unknownCommand(text);
+  }
+ 
   }
   else{
     unknownCommand(text);
@@ -67,9 +75,11 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello(x){
+  x.trim();
+  console.log("hello"+x+"!");
 }
+
 
 
 /**
