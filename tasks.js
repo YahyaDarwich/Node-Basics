@@ -38,6 +38,8 @@ function onDataReceived(text) {
     list();
   } else if (text.startsWith("add")) {
     add(text);
+  } else if (text.startsWith("edit")) {
+    edit(text);
   } else if (text.startsWith("remove")) {
     remove(text);
   } else if (text === "help\n") {
@@ -97,6 +99,10 @@ function help() {
     'The possible commands:\nhello\nhello "add anything"\nlist\nadd\nremove\nquit\nexit\nhelp '
   );
 }
+
+
+
+
 var tasks = ["sw", "wda"];
 function list() {
   console.log("available tasks:\n");
@@ -104,6 +110,9 @@ function list() {
     console.log(i + 1 + " - [ ] " + tasks[i]);
   }
 }
+
+
+
 
 function add(x) {
   var y = x.substring(4, x.length);
@@ -114,6 +123,9 @@ function add(x) {
   }
 }
 
+
+
+
 function remove(x) {
   var y = parseInt(x.substring(7));
   if (y >= 1 && y <= tasks.length) {
@@ -122,5 +134,23 @@ function remove(x) {
     console.log("THe number entered does not exist");
   } else {
     tasks.splice(tasks.length - 1, 1);
+  }
+}
+
+
+
+
+function edit(x){
+  var y = x.substring(5, x.length);
+  var z = parseInt(x.substring(5,7));
+  var x = x.substring(6);
+  if (y == "") {
+    console.log("error: specific the task you want to edit");
+  }
+  else if(y != null && z >= 1){
+    tasks.splice(z-1,1,x.trim());
+  }
+  else if(y != null){
+    tasks.splice(tasks.length-1,1,y.trim());
   }
 }
