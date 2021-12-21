@@ -38,6 +38,8 @@ function onDataReceived(text) {
     list();
   } else if (text.startsWith("add")) {
     add(text);
+  } else if (text.startsWith("remove")) {
+    remove(text);
   } else if (text === "help\n") {
     help();
   } else if (text.startsWith("hello")) {
@@ -109,5 +111,15 @@ function add(x) {
     console.log("error: add a task to command add");
   } else {
     tasks.push(y.trim());
+  }
+}
+
+function remove(x) {
+  var y = parseInt(x.substring(7));
+  console.log(y);
+  if (y >= 1) {
+    tasks.splice(y - 1, 1);
+  } else {
+    tasks.splice(tasks.length - 1, 1);
   }
 }
