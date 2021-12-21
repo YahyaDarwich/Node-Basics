@@ -116,9 +116,10 @@ function add(x) {
 
 function remove(x) {
   var y = parseInt(x.substring(7));
-  console.log(y);
-  if (y >= 1) {
+  if (y >= 1 && y <= tasks.length) {
     tasks.splice(y - 1, 1);
+  } else if (y > tasks.length) {
+    console.log("THe number entered does not exist");
   } else {
     tasks.splice(tasks.length - 1, 1);
   }
