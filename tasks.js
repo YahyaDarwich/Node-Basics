@@ -100,9 +100,11 @@ startApp("Yahya Darwich");
  */
 function help() {
   console.log(
-    'The possible commands:\nhello\nhello "add anything"\nlist\nadd\nremove\nquit\nexit\nhelp '
+    'The possible commands:\nhello\nhello "add anything"\nlist\nadd\nedit\nremove\ncheck\nuncheck\nquit\nexit\nhelp '
   );
 }
+
+
 
 var prop;
 var tasks = ["get milk"];
@@ -112,6 +114,10 @@ var array = tasks.map((prop) => ({
   done: "",
 }));
 
+
+/**
+ * list of commands
+ */
 function list() {
   console.log(array);
   console.log("available tasks:\n");
@@ -128,7 +134,11 @@ function list() {
     }
   }
 }
-var checked;
+
+/**
+ * check tasks
+ */
+
 function check(x) {
   var y = x.substring(6, x.length);
   var z = parseInt(y);
@@ -141,6 +151,10 @@ function check(x) {
     console.log(array);
   }
 }
+
+/**
+ * uncheck tasks
+ */
 function uncheck(x){
   var y = x.substring(8, x.length);
   var z = parseInt(y);
@@ -153,6 +167,10 @@ function uncheck(x){
     console.log(array);
   }
 }
+
+/**
+ * add tasks
+ */
 function add(x) {
   var y = x.substring(4, x.length);
   if (y == "") {
@@ -162,6 +180,10 @@ function add(x) {
   }
 }
 
+
+/**
+ * remove tasks
+ */
 function remove(x) {
   var y = parseInt(x.substring(7));
   if (y >= 1 && y <= tasks.length) {
@@ -173,6 +195,10 @@ function remove(x) {
   }
 }
 
+
+/**
+ * edit tasks
+ */
 function edit(x) {
   var y = x.substring(5, x.length);
   var z = parseInt(x.substring(5, 7));
