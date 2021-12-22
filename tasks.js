@@ -44,6 +44,8 @@ function onDataReceived(text) {
     remove(text);
   } else if (text.startsWith("check")) {
     check(text);
+  } else if (text.startsWith("uncheck")) {
+    uncheck(text);
   } else if (text === "help\n") {
     help();
   } else if (text.startsWith("hello")) {
@@ -105,24 +107,23 @@ function help() {
 var prop;
 var tasks = ["get milk"];
 
-
 var array = tasks.map((prop) => ({
   prop,
   done: "",
 }));
 
 function list() {
-  
-  
   console.log(array);
   console.log("available tasks:\n");
-  
+
   for (let i = 0; i < array.length; i++) {
     if (array[i].done == "true") {
       console.log(i + 1 + " - [✓] " + array[i].prop);
-      
+    } 
+    else if (array[i].done == "false") {
+      console.log(i + 1 + " - [ ] " + array[i].prop);
     }
-    else{
+    else {
       console.log(i + 1 + " - [ ] " + array[i].prop);
     }
   }
@@ -131,29 +132,33 @@ var checked;
 function check(x) {
   var y = x.substring(6, x.length);
   var z = parseInt(y);
- 
-  
+
   if (y == "") {
     console.log("error: enter the number of task you need checked");
-  }
-  else if(z >= 1){
-    
-    array[z-1].done = "true";
-    checked = "✓";
+  } else if (z >= 1) {
+    array[z - 1].done = "true";
+
     console.log(array);
   }
 }
+function uncheck(x){
+  var y = x.substring(8, x.length);
+  var z = parseInt(y);
 
+  if (y == "") {
+    console.log("error: enter the number of task you need unchecked");
+  } else if (z >= 1) {
+    array[z - 1].done = "false";
 
-
+    console.log(array);
+  }
+}
 function add(x) {
   var y = x.substring(4, x.length);
   if (y == "") {
     console.log("error: add a task to command add");
   } else {
-   array.push({prop: y.trim(), done: ""});
-    
-    
+    array.push({ prop: y.trim(), done: "" });
   }
 }
 
@@ -175,8 +180,8 @@ function edit(x) {
   if (y == "") {
     console.log("error: specific the task you want to edit");
   } else if (y != null && z >= 1) {
-    array[z - 1].prop=x.trim();
+    array[z - 1].prop = x.trim();
   } else if (y != null) {
-    array[array.length - 1].prop= y.trim();
+    array[array.length - 1].prop = y.trim();
   }
 }
