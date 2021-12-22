@@ -42,6 +42,8 @@ function onDataReceived(text) {
     edit(text);
   } else if (text.startsWith("remove")) {
     remove(text);
+  } else if (text.startsWith("check")) {
+    check(text);
   } else if (text === "help\n") {
     help();
   } else if (text.startsWith("hello")) {
@@ -100,17 +102,47 @@ function help() {
   );
 }
 
+var prop;
+var tasks = ["get milk"];
 
 
+var array = tasks.map((prop) => ({
+  prop,
+  done: "",
+}));
 
-var tasks = ["sw", "wda"];
 function list() {
+  
+  
+  console.log(array);
   console.log("available tasks:\n");
-  for (let i = 0; i < tasks.length; i++) {
-    console.log(i + 1 + " - [ ] " + tasks[i]);
+  
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].done == "true") {
+      console.log(i + 1 + " - [✓] " + array[i].prop);
+      
+    }
+    else{
+      console.log(i + 1 + " - [ ] " + array[i].prop);
+    }
   }
 }
-
+var checked;
+function check(x) {
+  var y = x.substring(6, x.length);
+  var z = parseInt(y);
+ 
+  
+  if (y == "") {
+    console.log("error: enter the number of task you need checked");
+  }
+  else if(z >= 1){
+    
+    array[z-1].done = "true";
+    checked = "✓";
+    console.log(array);
+  }
+}
 
 
 
@@ -119,38 +151,32 @@ function add(x) {
   if (y == "") {
     console.log("error: add a task to command add");
   } else {
-    tasks.push(y.trim());
+   array.push({prop: y.trim(), done: ""});
+    
+    
   }
 }
-
-
-
 
 function remove(x) {
   var y = parseInt(x.substring(7));
   if (y >= 1 && y <= tasks.length) {
-    tasks.splice(y - 1, 1);
-  } else if (y > tasks.length) {
+    array.splice(y - 1, 1);
+  } else if (y > array.length) {
     console.log("THe number entered does not exist");
   } else {
-    tasks.splice(tasks.length - 1, 1);
+    array.splice(array.length - 1, 1);
   }
 }
 
-
-
-
-function edit(x){
+function edit(x) {
   var y = x.substring(5, x.length);
-  var z = parseInt(x.substring(5,7));
+  var z = parseInt(x.substring(5, 7));
   var x = x.substring(6);
   if (y == "") {
     console.log("error: specific the task you want to edit");
-  }
-  else if(y != null && z >= 1){
-    tasks.splice(z-1,1,x.trim());
-  }
-  else if(y != null){
-    tasks.splice(tasks.length-1,1,y.trim());
+  } else if (y != null && z >= 1) {
+    array[z - 1].prop=x.trim();
+  } else if (y != null) {
+    array[array.length - 1].prop= y.trim();
   }
 }
