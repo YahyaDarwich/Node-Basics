@@ -8,6 +8,9 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
+
+var fs = require("fs");
+
 function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding("utf8");
@@ -85,10 +88,10 @@ function hello(x) {
  *
  * @returns {void}
  */
-function quit() {
-  console.log("Quitting now, goodbye!");
-  process.exit();
-}
+// function quit() {
+//   console.log("Quitting now, goodbye!");
+//   process.exit();
+// }
 
 // The following line starts the application
 startApp("Yahya Darwich");
@@ -99,21 +102,25 @@ startApp("Yahya Darwich");
  * @returns {void}
  */
 function help() {
-  console.log(
-    'The possible commands:\nhello\nhello "add anything"\nlist\nadd\nedit\nremove\ncheck\nuncheck\nquit\nexit\nhelp '
+  fs.writeFile(
+    "database.json",
+    'The possible commands:\nhello\nhello "add anything"\nlist\nadd\nedit\nremove\ncheck\nuncheck\nquit\nexit\nhelp ',
+    function (err) {
+      if (err) throw err;
+      console.log("Replaced!");
+    }
   );
 }
 
-
+// var tasks = ["get milk"];
 
 var prop;
-var tasks = ["get milk"];
-
-var array = tasks.map((prop) => ({
-  prop,
-  done: "",
-}));
-
+var array = [
+  {
+    prop: "get milk",
+    done: "",
+  },
+];
 
 /**
  * list of commands
@@ -125,11 +132,9 @@ function list() {
   for (let i = 0; i < array.length; i++) {
     if (array[i].done == "true") {
       console.log(i + 1 + " - [✓] " + array[i].prop);
-    } 
-    else if (array[i].done == "false") {
+    } else if (array[i].done == "false") {
       console.log(i + 1 + " - [ ] " + array[i].prop);
-    }
-    else {
+    } else {
       console.log(i + 1 + " - [ ] " + array[i].prop);
     }
   }
@@ -155,7 +160,7 @@ function check(x) {
 /**
  * uncheck tasks
  */
-function uncheck(x){
+function uncheck(x) {
   var y = x.substring(8, x.length);
   var z = parseInt(y);
 
@@ -180,13 +185,12 @@ function add(x) {
   }
 }
 
-
 /**
  * remove tasks
  */
 function remove(x) {
   var y = parseInt(x.substring(7));
-  if (y >= 1 && y <= tasks.length) {
+  if (y >= 1 && y <= array.length) {
     array.splice(y - 1, 1);
   } else if (y > array.length) {
     console.log("THe number entered does not exist");
@@ -194,7 +198,6 @@ function remove(x) {
     array.splice(array.length - 1, 1);
   }
 }
-
 
 /**
  * edit tasks
@@ -209,5 +212,47 @@ function edit(x) {
     array[z - 1].prop = x.trim();
   } else if (y != null) {
     array[array.length - 1].prop = y.trim();
+  }
+}
+
+//   // function quit(){
+//   //   console.log("Quitting now, goodbye!");
+
+//   //   try {
+//   //     fs.writeFileSync("data.json", JSON.stringify(tasks, null, 5))
+//   //     // console.log(JSON.parse(tasks.toString()));
+//   //   } catch (error) {
+//   //     console.error(`Got an error trying to write the file: ${error.message}`);
+//   //   }
+
+//   //   process.exit();
+
+//   // }
+
+const { argv } = require("process");
+let file = process.argv[2];
+if (argv.length < 3) {
+  file = "database.json";
+}
+
+let newData = fs.readFileSync(file);
+let realdata = JSON.parse(newData);
+let details = Object.values(realdata);
+details.forEach((value) => {
+  array = Object.values(details);
+});
+
+function quit() {
+  console.log("Quitting now, goodbye!");
+  try {
+    var fs = require("fs");
+    const MyObject = Object.assign({}, array);
+    fs.writeFile(file, JSON.stringify(MyObject), function (err) {
+      if (err) throw err;
+      console.log("Replaced! Data Saved!");
+      process.exit();
+    });
+  } catch (error) {
+    console.error('Data not saved! check it');
   }
 }
