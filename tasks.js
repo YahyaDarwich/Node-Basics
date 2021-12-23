@@ -88,10 +88,21 @@ function hello(x) {
  *
  * @returns {void}
  */
-// function quit() {
-//   console.log("Quitting now, goodbye!");
-//   process.exit();
-// }
+function quit() {
+  console.log("Quitting now, goodbye!");
+  try {
+    var fs = require("fs");
+    const MyObject = Object.assign({}, array);
+    fs.writeFile(file, JSON.stringify(MyObject), function (err) {
+      if (err) throw err;
+      console.log("Replaced! Data Saved!");
+      process.exit();
+    });
+  } catch (error) {
+    console.error('Data not saved! check it');
+  }
+}
+
 
 // The following line starts the application
 startApp("Yahya Darwich");
@@ -102,14 +113,7 @@ startApp("Yahya Darwich");
  * @returns {void}
  */
 function help() {
-  fs.writeFile(
-    "database.json",
-    'The possible commands:\nhello\nhello "add anything"\nlist\nadd\nedit\nremove\ncheck\nuncheck\nquit\nexit\nhelp ',
-    function (err) {
-      if (err) throw err;
-      console.log("Replaced!");
-    }
-  );
+  console.log("The possible commands:\nhello\nhello \"add anything\"\nlist\nadd\nedit\nremove\ncheck\nuncheck\nquit\nexit\nhelp");
 }
 
 // var tasks = ["get milk"];
@@ -215,20 +219,6 @@ function edit(x) {
   }
 }
 
-//   // function quit(){
-//   //   console.log("Quitting now, goodbye!");
-
-//   //   try {
-//   //     fs.writeFileSync("data.json", JSON.stringify(tasks, null, 5))
-//   //     // console.log(JSON.parse(tasks.toString()));
-//   //   } catch (error) {
-//   //     console.error(`Got an error trying to write the file: ${error.message}`);
-//   //   }
-
-//   //   process.exit();
-
-//   // }
-
 const { argv } = require("process");
 let file = process.argv[2];
 if (argv.length < 3) {
@@ -242,17 +232,3 @@ details.forEach((value) => {
   array = Object.values(details);
 });
 
-function quit() {
-  console.log("Quitting now, goodbye!");
-  try {
-    var fs = require("fs");
-    const MyObject = Object.assign({}, array);
-    fs.writeFile(file, JSON.stringify(MyObject), function (err) {
-      if (err) throw err;
-      console.log("Replaced! Data Saved!");
-      process.exit();
-    });
-  } catch (error) {
-    console.error('Data not saved! check it');
-  }
-}
